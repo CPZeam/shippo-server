@@ -22,6 +22,7 @@ type ServerGroup struct {
 	PermissionPolicy *PermissionPolicyServer
 	Wx               *WxServer
 	WxArticle        *WxArticle
+	WxOffiaccount    *WxOffiaccount
 }
 
 type Server struct {
@@ -71,6 +72,7 @@ func (s *Server) InitRouter(engine *gin.Engine) {
 	s.Group.PermissionPolicy.InitRouter(router)
 	s.Group.Wx.InitRouter(router)
 	s.Group.WxArticle.InitRouter(router)
+	s.Group.WxOffiaccount.InitRouter(router)
 }
 
 func (s *Server) Init() {

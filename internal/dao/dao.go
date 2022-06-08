@@ -22,6 +22,7 @@ type DaoGroup struct {
 	PermissionPolicy *PermissionPolicyDao
 	Picture          *PictureDao
 	WxArticle        *WxArticle
+	WxOffiaccount    *WxOffiaccount
 }
 
 type Dao struct {
@@ -32,7 +33,7 @@ type Dao struct {
 func New() *Dao {
 
 	db, err := gorm.Open(mysql.New(mysql.Config{
-		DSN:                       config.DB.DSN, // DSN data source name
+		DSN:                       "shippo_dev_user:DBpassportIsnull000@tcp(rm-bp15ymnjm81h2320oro.mysql.rds.aliyuncs.com:3306)/shippo_dev?charset=utf8&parseTime=True&loc=Local", // DSN data source name
 		DefaultStringSize:         256,           // string 类型字段的默认长度
 		DisableDatetimePrecision:  true,          // 禁用 datetime 精度，MySQL 5.6 之前的数据库不支持
 		DontSupportRenameIndex:    true,          // 重命名索引时采用删除并新建的方式，MySQL 5.7 之前的数据库和 MariaDB 不支持重命名索引
@@ -92,6 +93,10 @@ func NewGroup(d *Dao) *DaoGroup {
 		Picture:          NewPictureDao(d),
 		WxArticle:        NewWxArticle(d),
 	}
+}
+
+func NewWxOffiaccount(d *Dao) {
+	panic("unimplemented")
 }
 
 func newTest() *Dao {

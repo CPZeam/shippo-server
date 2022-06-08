@@ -17,6 +17,7 @@ type ServiceGroup struct {
 	PermissionAccess *PermissionAccessService
 	PermissionPolicy *PermissionPolicyService
 	Picture          *PictureService
+	WxOffiaccount    *WxOffiaccount
 }
 
 type Service struct {
