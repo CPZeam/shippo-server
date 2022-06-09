@@ -22,7 +22,7 @@ type ServerGroup struct {
 	PermissionPolicy *PermissionPolicyServer
 	Wx               *WxServer
 	WxArticle        *WxArticle
-	WxOffiaccount    *WxOffiaccount
+	WxOffiaccount    *WxOffiaccountServer
 }
 
 type Server struct {
@@ -56,6 +56,7 @@ func NewGroup(d *Server) *ServerGroup {
 		PermissionPolicy: NewPermissionPolicyServer(d),
 		Wx:               NewWxServer(d),
 		WxArticle:        NewWxArticle(d),
+		WxOffiaccount:    NewWxOffiaccountServer(d),
 	}
 }
 

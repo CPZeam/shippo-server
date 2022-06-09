@@ -7,16 +7,22 @@ import (
 	"shippo-server/utils/ecode"
 )
 
-type WxOffiaccount struct {
+type WxOffiaccountService struct {
 	*Service
 }
 
-func (t *WxOffiaccount) FindAll()(r []model.WxOffiaccount,err error){
+func NewWxOffiaccountService(s *Service) *WxOffiaccountService {
+	return &WxOffiaccountService{s}
+}
+
+//查询全部公众号
+func (t *WxOffiaccountService) FindAll()(r []model.WxOffiaccount,err error){
 	r,err=t.dao.WxOffiaccount.FindAll()
 	return
 }
 
-func (t *WxOffiaccount) Find(username string)(r model.WxOffiaccount,err error){
+//查询公众号根据username
+func (t *WxOffiaccountService) Find(username string)(r *model.WxOffiaccount,err error){
 	r,err=t.dao.WxOffiaccount.Find(username)
 	if errors.Is(err,gorm.ErrRecordNotFound){
 		err=ecode.ErrRecordNotFound

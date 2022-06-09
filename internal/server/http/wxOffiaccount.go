@@ -8,18 +8,34 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type WxOffiaccount struct {
+type WxOffiaccountServer struct {
 	*Server
 }
 
+func NewWxOffiaccountServer(s *Server) *WxOffiaccountServer {
+	return &WxOffiaccountServer{s}
+}
+
+func (t *WxOffiaccountServer) InitRouter(Router *gin.RouterGroup) {
+	r := Router.Group("wxOffiaccount")
+	{
+		r.POST("findAll", box.Handler(t.FindAll))
+		r.POST("find", box.Handler(t.Find))
+	}
+}
+
 //FindAll 查询所有公众号
-func (t *WxOffiaccount) FindAll(c *box.Context) {
+func (t *WxOffiaccountServer) FindAll(c *box.Context) {
+	var param model.WxOffiaccount
+	c.ShouldBindJSON(&param)
+	fmt.Printf("FindAll: %+v\n", param)
+
 	r, err := t.service.WxOffiaccount.FindAll()
 	c.JSON(r, err)
 }
 
 //Find 根据username查询公众号
-func (t *WxOffiaccount) Find(c *box.Context) {
+func (t *WxOffiaccountServer) Find(c *box.Context) {
 	var param model.WxOffiaccount
 	c.ShouldBindJSON(&param)
 	fmt.Printf("wxOffiaccount->Find:%+v\n", param)
@@ -27,10 +43,3 @@ func (t *WxOffiaccount) Find(c *box.Context) {
 	c.JSON(r, err)
 }
 
-func (t *WxOffiaccount) InitRouter(Router *gin.RouterGroup) {
-	r := Router.Group("wxOffiaccount")
-	{
-		r.POST("findAll", box.Handler(t.FindAll))
-		r.POST("find", box.Handler(t.Find))
-	}
-}
